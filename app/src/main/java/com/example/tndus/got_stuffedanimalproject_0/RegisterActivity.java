@@ -1,9 +1,8 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,35 +37,39 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userID = idText.getText().toString();
                 String userPassWord = passwordText.getText().toString();
-                String userName = nameText.getText().toString();
+                final String userName = nameText.getText().toString();
                 int userAge = Integer.parseInt(ageText.getText().toString());
-                Log.d("aaa", "onCliack: aa");
+                Log.d("Register", "onCliack: aa");
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.d("aaa", "onCliack: aa");
+                        Log.d("Register", "onCliack: aa");
                         try {
 
-                            Log.d("bbb", "onCliack: bb");
+                            Log.d("Register", "onCliack: bb");
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if(success){
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("회원 등록에 성공했습니다.")
-                                        .setPositiveButton("확인",null)
-                                        .create()
-                                        .show();
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+//                                builder.setMessage("회원 등록에 성공했습니다.")
+//                                        .setPositiveButton("확인",null)
+//                                        .create()
+//                                        .show();
+                                Toast.makeText(getApplicationContext(), "회원 등록에 성공했습니다.", Toast.LENGTH_LONG).show();
+                                Log.d("Register", "success");
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 RegisterActivity.this.startActivity(intent);
                             }
                             else{
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("회원 등록에 실패했습니다.")
-                                        .setNegativeButton("다시시도",null)
-                                        .create()
-                                        .show();
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+//                                builder.setMessage("회원 등록에 실패했습니다.")
+//                                        .setNegativeButton("다시시도",null)
+//                                        .create()
+//                                        .show();
+                                Toast.makeText(getApplicationContext(), "회원 등록에 실패했습니다. 다시 시도해 주세요.", Toast.LENGTH_LONG).show();
+                                Log.d("Register", "Fail");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -74,14 +77,14 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 };
 
-                Log.d("aaa", "onCliack: aa");
+                Log.d("Register", "onCliack: aa");
                 RegisterRequest registerRequest = new RegisterRequest(userID,userPassWord,userName,userAge,responseListener);
-                Log.d("xxx", "onCliack: xx");
+                Log.d("Register", "onCliack: xx");
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                Log.d("rasdfa", "onCliack: aa");
+                Log.d("Register", "onCliack: aa");
 
                 queue.add(registerRequest);
-                Log.d("qqq", "onCliack: aa");
+                Log.d("Register", "onCliack: aa");
 
             }
         });
