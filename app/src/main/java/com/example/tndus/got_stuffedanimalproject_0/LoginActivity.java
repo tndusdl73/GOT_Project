@@ -1,9 +1,9 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordText = (EditText)findViewById(R.id.passwordText);
 
         final Button loginButton = (Button)findViewById(R.id.loginButton);
+        final Button btn_test= (Button)findViewById(R.id.btn_test);                             //for test
 
         final TextView registerButton = (TextView)findViewById(R.id.registerButton);
 
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,17 @@ public class LoginActivity extends AppCompatActivity {
                 LoginRequest loginRequest = new LoginRequest(userID,userPassword,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
+            }
+        });
+
+
+
+        btn_test.setOnClickListener(new View.OnClickListener() {                // for test
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
+                startActivity(intent);
+
             }
         });
 
