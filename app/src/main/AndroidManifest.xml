@@ -25,7 +25,8 @@
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".BluetoothActivity"></activity>
+        <activity android:name=".BluetoothActivity" />
+        <activity android:name=".BT_test2Activity"></activity>
     </application>
 
 </manifest>
