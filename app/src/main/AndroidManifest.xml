@@ -28,7 +28,13 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".BluetoothActivity" />
         <activity android:name=".BT_test2Activity" />
-        <activity android:name=".H_testActivity"></activity>
+        <activity android:name=".H_testActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".ReadBookActivity" />
+        <activity android:name=".BookListActivity" />
+        <activity android:name=".CctvActivity" />
+        <activity android:name=".MypageActivity" />
+        <activity android:name=".SettingActivity"></activity>
     </application>
 
 </manifest>
