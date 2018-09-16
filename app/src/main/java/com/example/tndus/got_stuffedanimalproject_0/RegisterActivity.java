@@ -39,13 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String userPassWord = passwordText.getText().toString();
                 final String userName = nameText.getText().toString();
                 int userAge = Integer.parseInt(ageText.getText().toString());
-                Log.d("Register", "onCliack: aa");
+                Log.d("Register", "onCliack: aa24");
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Register", "onCliack: aa");
+                        Log.d("Register", "onCliack: aaaaaa");
                         try {
 
                             Log.d("Register", "onCliack: bb");
