@@ -20,6 +20,7 @@
             tools:layout_editor_absoluteY="59dp" />
 
         <ListView
+            android:id="@+id/bookListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
