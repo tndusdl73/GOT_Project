@@ -1,9 +1,8 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         String userID = intent.getStringExtra("userID");
         String userPassword = intent.getStringExtra("userPassword");
         String message = "환영합니다," + userID + "님!";
+//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
         idText.setText(userID);
         passwordText.setText(userPassword);
