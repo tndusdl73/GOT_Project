@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
      EditText passwordText;
 
      Button loginButton;
-     Button btn_test;                             //for test
 
      TextView registerButton;
 
@@ -49,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
          passwordText = (EditText)findViewById(R.id.passwordText);
 
          loginButton = (Button)findViewById(R.id.loginButton);
-         btn_test= (Button)findViewById(R.id.btn_test);                             //for test
 
          registerButton = (TextView)findViewById(R.id.registerButton);
 
@@ -118,16 +116,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-        btn_test.setOnClickListener(new View.OnClickListener() {                // for test
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
 
     }

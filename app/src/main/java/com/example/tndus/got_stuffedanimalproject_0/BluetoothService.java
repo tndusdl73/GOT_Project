@@ -23,7 +23,8 @@ public class BluetoothService {
 
     // RFCOMM Protocol
     private static final UUID MY_UUID = UUID
-            .fromString("00000003-0000-1000-8000-00805F9B34FB");
+            .fromString("00000000-7dd1-172a-049d-9c760033c587");
+
 
     private BluetoothAdapter btAdapter;
 
@@ -51,6 +52,7 @@ public class BluetoothService {
 
         // BluetoothAdapter 얻기
         btAdapter = BluetoothAdapter.getDefaultAdapter();
+        Log.d("BluetoothService", "BluetoothService");
     }
 
     /**
@@ -60,6 +62,7 @@ public class BluetoothService {
      */
     public boolean getDeviceState() {
         Log.i(TAG, "Check the Bluetooth support");
+        Log.d(TAG, "getDeviceState");
 
         if (btAdapter == null) {
             Log.d(TAG, "Bluetooth is not available");
@@ -78,6 +81,7 @@ public class BluetoothService {
      */
     public void enableBluetooth() {
         Log.i(TAG, "Check the enabled Bluetooth");
+        Log.d(TAG, "enableBluetooth");
 
         if (btAdapter.isEnabled()) {
             // 기기의 블루투스 상태가 On인 경우
@@ -100,6 +104,7 @@ public class BluetoothService {
     public void scanDevice() {
         Log.d(TAG, "Scan Device");
 
+
         Intent serverIntent = new Intent(mActivity, DeviceListActivity.class);
         mActivity.startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
     }
@@ -110,6 +115,7 @@ public class BluetoothService {
      * @param data
      */
     public void getDeviceInfo(Intent data) {
+        Log.d(TAG, "getDeviceInfo");
         // Get the device MAC address
         String address = data.getExtras().getString(
                 DeviceListActivity.EXTRA_DEVICE_ADDRESS);
@@ -159,9 +165,11 @@ public class BluetoothService {
 
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {
+            Log.d(TAG, "connecting");
             if (mConnectThread == null) {
 
             } else {
+                Log.d(TAG, "connecting_fail");
                 mConnectThread.cancel();
                 mConnectThread = null;
             }
@@ -176,9 +184,12 @@ public class BluetoothService {
         }
 
         // Start the thread to connect with the given device
+        Log.d(TAG, "여기까지 오나?");
         mConnectThread = new ConnectThread(device);
+        Log.d(TAG, "여기까지 오나?");
 
         mConnectThread.start();
+        Log.d(TAG, "여기까지 오나?");
         setState(STATE_CONNECTING);
     }
 
@@ -295,12 +306,16 @@ public class BluetoothService {
             // BluetoothSocket 연결 시도
             try {
                 // BluetoothSocket 연결 시도에 대한 return 값은 succes 또는 exception이다.
+
+                Log.d(TAG, "mSocket Connect 시도");
                 mmSocket.connect();
                 Log.d(TAG, "Connect Success");
 
             } catch (IOException e) {
+                Log.d(TAG, "Connect Success 실패");
                 connectionFailed(); // 연결 실패시 불러오는 메소드
                 Log.d(TAG, "Connect Fail");
+                Log.d(TAG, String.valueOf(e));
 
                 // socket을 닫는다.
                 try {

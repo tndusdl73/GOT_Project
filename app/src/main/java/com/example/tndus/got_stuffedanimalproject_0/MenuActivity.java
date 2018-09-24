@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingIntent = new Intent(MenuActivity.this, SettingActivity.class);
+                Intent settingIntent = new Intent(MenuActivity.this, BluetoothActivity.class);
                 MenuActivity.this.startActivity(settingIntent);
             }
         });
