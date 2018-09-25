@@ -34,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Set;
 
@@ -93,6 +94,7 @@ public class DeviceListActivity extends Activity {
 
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        Log.d("BroadcastReceiver", "레지스터 확인");
         this.registerReceiver(mReceiver, filter);
 
         // Register for broadcasts when discovery has finished
@@ -165,6 +167,7 @@ public class DeviceListActivity extends Activity {
             // Create the result Intent and include the MAC address
             Intent intent = new Intent();
             intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+            Log.d("BluetoothService", "DeviceList에서 MAC 주소 확인 : " + address);
 
             // Set result and finish this Activity
             setResult(Activity.RESULT_OK, intent);
@@ -178,11 +181,29 @@ public class DeviceListActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            Log.d("BroadcastReceiver", " 브로드캐스트 진행중!!");
+            Toast.makeText(context, "브로드케스트 진행중!", Toast.LENGTH_SHORT).show();
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+
+            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+                Log.d("BroadcastReceiver", device.getName().toString() +" Device Is Connected!");
+                //장치의 연결이 끊기면
+                Toast.makeText(context, "연결됨!!", Toast.LENGTH_SHORT).show();
+            }else if(BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)){
+                Log.d("BroadcastReceiver", device.getName().toString() +" Device Is DISConnected!");
+
+                Toast.makeText(context, "연결해제!!", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+
+
 
             // When discovery finds a device
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // Get the BluetoothDevice object from the Intent
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
                     mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
@@ -198,5 +219,12 @@ public class DeviceListActivity extends Activity {
             }
         }
     };
+
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        switch(requestCode){
+//            case REQUEST_CONNECT_DEVICE:
+//
+//        }
+//    }
 
 }

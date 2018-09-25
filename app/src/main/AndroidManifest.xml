@@ -7,8 +7,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
+        android:protectionLevel="signature"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
 
     <application
         android:allowBackup="true"
@@ -40,6 +44,10 @@
         <activity android:name=".SettingActivity" />
         <activity android:name=".BookDownloadActivity" />
         <activity android:name=".BleActivity"></activity>
+
+        <service android:name=".Service"></service>
+
+
     </application>
 
 </manifest>

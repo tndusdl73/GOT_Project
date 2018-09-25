@@ -53,6 +53,8 @@ public class BluetoothService {
         // BluetoothAdapter 얻기
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         Log.d("BluetoothService", "BluetoothService");
+
+
     }
 
     /**
@@ -237,16 +239,16 @@ public class BluetoothService {
 
         setState(STATE_NONE);
     }
-
-    // 값을 쓰는 부분(보내는 부분)
-    public void write(byte[] out) { // Create temporary object
-        ConnectedThread r; // Synchronize a copy of the ConnectedThread
-        synchronized (this) {
-            if (mState != STATE_CONNECTED)
-                return;
-            r = mConnectedThread;
-        } // Perform the write unsynchronized r.write(out); }
-    }
+//
+//    // 값을 쓰는 부분(보내는 부분)
+//    public void write(byte[] out) { // Create temporary object
+//        ConnectedThread r; // Synchronize a copy of the ConnectedThread
+//        synchronized (this) {
+//            if (mState != STATE_CONNECTED)
+//                return;
+//            r = mConnectedThread;
+//        } // Perform the write unsynchronized r.write(out); }
+//    }
 
     // 연결 실패했을때
     private void connectionFailed() {
@@ -288,6 +290,7 @@ public class BluetoothService {
 
             // 디바이스 정보를 얻어서 BluetoothSocket 생성
             try {
+                Log.d(TAG, "블루투스 소켓 생성, mmSocket에 넣음");
                 tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
             } catch (IOException e) {
                 Log.e(TAG, "create() failed", e);
@@ -414,5 +417,13 @@ public class BluetoothService {
             }
         }
     }
-
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        switch(requestCode){
+//            case REQUEST_CONNECT_DEVICE:
+//                if(resultCode == Activity.RESULT_OK){
+//                    String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+////                    BluetoothDevice device = mbl
+//                }
+//        }
+//    }
 }

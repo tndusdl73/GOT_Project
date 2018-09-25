@@ -1,10 +1,93 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 public class H_testActivity extends AppCompatActivity {
+    private static final int REQUEST_CONNECT_DEVICE = 1;
+    private static final int REQUEST_ENABLE_BT = 2;
+
+    private BluetoothAdapter mBluetoothAdapter = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_h_test);
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "불가능", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        }
+    }
+    private void ensureDiscoverable(){
+        if(mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE){
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
+    }
+}
 
 
+//        if(mBlueToothAdapter == null){
+//            // 만약 블루투스 adapter가 없으면, 블루투스를 지원하지 않는 기기이거나 블루투스 기능을 끈 기기이다.
+//        }else{
+//            // 블루투스 adapter가 있으면, 블루투스 adater에서 페어링된 장치 목록을 불러올 수 있다.
+//            Set pairDevices = mBlueToothAdapter.getBondedDevices();
+//
+//            //페어링된 장치가 있으면
+////            if(pairDevices.size()>0){
+////                for(BluetoothDevice device : pairDevices){
+////                    //페어링된 장치 이름과, MAC주소를 가져올 수 있다.
+////                    Log.d("TEST", device.getName().toString() +" Device Is Connected!");
+////                    Log.d("TEST", device.getAddress().toString() +" Device Is Connected!");
+////                }
+////            }else{
+////                Toast.makeText(getApplicationContext(), "no Device", Toast.LENGTH_SHORT).show();
+////            }
+//        }
+
+        //브로드캐스트리시버를 이용하여 블루투스 장치가 연결이 되고, 끊기는 이벤트를 받아 올 수 있다.
+//        BroadcastReceiver bluetoothReceiver =  new BroadcastReceiver(){
+//            public void onReceive(Context context, Intent intent) {
+//                String action = intent.getAction();
+//                //연결된 장치를 intent를 통하여 가져온다.
+//                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+//
+//                //장치가 연결이 되었으면
+//                if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+//                    Log.d("TEST", device.getName().toString() +" Device Is Connected!");
+//                    //장치의 연결이 끊기면
+//                }else if(BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)){
+//                    Log.d("TEST", device.getName().toString() +" Device Is DISConnected!");
+//
+//                }
+//            }
+//        };
+//
+//        //MUST unregisterReceiver(bluetoothReceiver) in onDestroy()
+//        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+//        registerReceiver(bluetoothReceiver, filter);
+//        filter = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+//        registerReceiver(bluetoothReceiver, filter);
+
+
+//
 //    BluetoothAdapter mBluetoothAdapter;
 //
 //    //블루투스 요청 액티비티 코드
@@ -309,4 +392,4 @@ public class H_testActivity extends AppCompatActivity {
 //        unregisterReceiver(mBluetoothScanmodeReceiver);
 //        super.onDestroy();
 //    }
-}
+//}
