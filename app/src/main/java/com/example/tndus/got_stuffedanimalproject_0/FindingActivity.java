@@ -46,13 +46,13 @@ public class FindingActivity extends AppCompatActivity {
         btService.checkDevice();
     }
 
-//
+
 //        CheckThread thread = new CheckThread();
 //
 //        thread.start();
-//
+
 //    }
-//
+
 //    private class CheckThread extends Thread {
 //        private static final String TAG = "ExampleThread";
 //        public CheckThread() {

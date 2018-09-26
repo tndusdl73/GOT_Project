@@ -110,7 +110,7 @@ public class BluetoothActivity extends Activity implements OnClickListener {
                 if (btService.getDeviceState()) {
                     // 블루투스가 지원 가능한 기기일 때
                     btService.enableBluetooth();
-                    btService.scanDevice();
+                    btService.checkDevice();
                 } else {
                     finish();
                 }
