@@ -6,7 +6,9 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -168,30 +170,25 @@ public class BluetoothService {
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {
             Log.d(TAG, "connecting");
-            if (mConnectThread == null) {
-
-            } else {
-                Log.d(TAG, "connecting_fail");
+            if (mConnectThread != null) {
                 mConnectThread.cancel();
                 mConnectThread = null;
             }
         }
 
         // Cancel any thread currently running a connection
-        if (mConnectedThread == null) {
-
-        } else {
+        if (mConnectedThread != null) {
             mConnectedThread.cancel();
             mConnectedThread = null;
         }
 
         // Start the thread to connect with the given device
-        Log.d(TAG, "여기까지 오나?");
+        Log.d(TAG, "여기까지 오나?1");
         mConnectThread = new ConnectThread(device);
-        Log.d(TAG, "여기까지 오나?");
+        Log.d(TAG, "여기까지 오나?2");
 
         mConnectThread.start();
-        Log.d(TAG, "여기까지 오나?");
+        Log.d(TAG, "여기까지 오나?3");
         setState(STATE_CONNECTING);
     }
 
@@ -199,6 +196,8 @@ public class BluetoothService {
     public synchronized void connected(BluetoothSocket socket,
                                        BluetoothDevice device) {
         Log.d(TAG, "connected");
+
+        Toast.makeText(mActivity, "연결됏엉", Toast.LENGTH_SHORT).show();
 
         // Cancel the thread that completed the connection
         if (mConnectThread == null) {
@@ -252,11 +251,13 @@ public class BluetoothService {
 
     // 연결 실패했을때
     private void connectionFailed() {
+        Toast.makeText(mActivity, "연결실패", Toast.LENGTH_SHORT).show();
         setState(STATE_LISTEN);
     }
 
     // 연결을 잃었을 때
     private void connectionLost() {
+        Toast.makeText(mActivity, "연결해제", Toast.LENGTH_SHORT).show();
         setState(STATE_LISTEN);
 
     }
@@ -308,6 +309,7 @@ public class BluetoothService {
 
             // BluetoothSocket 연결 시도
             try {
+                Looper.prepare();
                 // BluetoothSocket 연결 시도에 대한 return 값은 succes 또는 exception이다.
 
                 Log.d(TAG, "mSocket Connect 시도");
@@ -417,13 +419,5 @@ public class BluetoothService {
             }
         }
     }
-//    public void onActivityResult(int requestCode, int resultCode, Intent data){
-//        switch(requestCode){
-//            case REQUEST_CONNECT_DEVICE:
-//                if(resultCode == Activity.RESULT_OK){
-//                    String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-////                    BluetoothDevice device = mbl
-//                }
-//        }
-//    }
+
 }

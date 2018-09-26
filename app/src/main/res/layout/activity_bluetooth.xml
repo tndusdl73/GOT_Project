@@ -62,5 +62,17 @@ tools:context=".MainActivity" >
         android:layout_alignParentBottom="true"
         android:text="h_test" />
 
+    <Button
+        android:id="@+id/btn_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="83dp"
+        android:layout_toEndOf="@+id/btn_connect"
+        android:layout_toRightOf="@+id/btn_connect"
+        android:text="미아방지모드ON" />
+
 
 </RelativeLayout>

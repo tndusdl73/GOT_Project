@@ -25,6 +25,7 @@ public class BluetoothActivity extends Activity implements OnClickListener {
     private Button btn_Service_Start;
     private Button btn_Service_Stop;
     private Button btn_h_test;
+    private Button btn_Service;
 
     private BluetoothService btService = null;
 
@@ -50,12 +51,14 @@ public class BluetoothActivity extends Activity implements OnClickListener {
         btn_Service_Start = (Button) findViewById(R.id.btn_service_start);
         btn_Service_Stop = (Button) findViewById(R.id.btn_service_stop);
         btn_h_test = (Button) findViewById(R.id.btn_h_test);
+        btn_Service = (Button) findViewById(R.id.btn_service);
 
         btn_Connect.setOnClickListener(this);
         btn_ble.setOnClickListener(this);
         btn_Service_Start.setOnClickListener(this);
         btn_Service_Stop.setOnClickListener(this);
         btn_h_test.setOnClickListener(this);
+        btn_Service.setOnClickListener(this);
 
         // BluetoothService 클래스 생성
         if (btService == null) {
@@ -101,6 +104,8 @@ public class BluetoothActivity extends Activity implements OnClickListener {
             case R.id.btn_h_test:
                 intent = new Intent(getApplicationContext(), H_testActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_service:
                 break;
 
         }

@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
-        android:protectionLevel="signature"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -35,7 +34,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".BluetoothActivity" />
         <activity android:name=".H_testActivity" />
-        <activity android:name=".DeviceListActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".ReadBookActivity" />
         <activity android:name=".BookListActivity" />
@@ -43,6 +41,12 @@
         <activity android:name=".MypageActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".BookDownloadActivity" />
+        <activity
+            android:name=".DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/select_device"
+            android:theme="@android:style/Theme.Holo.Dialog"/>
+
         <activity android:name=".BleActivity"></activity>
 
         <service android:name=".Service"></service>
