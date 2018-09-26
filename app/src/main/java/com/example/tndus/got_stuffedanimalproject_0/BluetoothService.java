@@ -92,7 +92,6 @@ public class BluetoothService {
             Log.d(TAG, "Bluetooth Enable Now");
 
             // Next Step
-            scanDevice();
         } else {
             // 기기의 블루투스 상태가 Off인 경우
             Log.d(TAG, "Bluetooth Enable Request");
@@ -113,11 +112,20 @@ public class BluetoothService {
         mActivity.startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
     }
 
+    public void checkDevice() {
+        Log.d(TAG, "Check Device");
+
+
+        Intent serverIntent = new Intent(mActivity, DeviceList_2_Activity.class);
+        mActivity.startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+    }
+
     /**
      * after scanning and get device info
      *
      * @param data
      */
+
     public void getDeviceInfo(Intent data) {
         Log.d(TAG, "getDeviceInfo");
         // Get the device MAC address
