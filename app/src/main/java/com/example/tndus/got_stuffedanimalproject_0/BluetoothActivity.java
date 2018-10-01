@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class BluetoothActivity extends Activity implements OnClickListener {
     // Debugging
@@ -21,10 +20,6 @@ public class BluetoothActivity extends Activity implements OnClickListener {
 
     // Layout
     private Button btn_Connect;
-    private Button btn_ble;
-    private Button btn_Service_Start;
-    private Button btn_Service_Stop;
-    private Button btn_h_test;
     private Button btn_Service;
 
     private BluetoothService btService = null;
@@ -47,17 +42,9 @@ public class BluetoothActivity extends Activity implements OnClickListener {
 
         /** Main Layout **/
         btn_Connect = (Button) findViewById(R.id.btn_connect);
-        btn_ble = (Button) findViewById(R.id.btn_ble);
-        btn_Service_Start = (Button) findViewById(R.id.btn_service_start);
-        btn_Service_Stop = (Button) findViewById(R.id.btn_service_stop);
-        btn_h_test = (Button) findViewById(R.id.btn_h_test);
         btn_Service = (Button) findViewById(R.id.btn_service);
 
         btn_Connect.setOnClickListener(this);
-        btn_ble.setOnClickListener(this);
-        btn_Service_Start.setOnClickListener(this);
-        btn_Service_Stop.setOnClickListener(this);
-        btn_h_test.setOnClickListener(this);
         btn_Service.setOnClickListener(this);
 
         // BluetoothService 클래스 생성
@@ -70,10 +57,6 @@ public class BluetoothActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
-            case R.id.btn_ble:
-                intent = new Intent(getApplicationContext(), BleActivity.class);
-                startActivity(intent);
-                break;
             case R.id.btn_connect:
                 if (btService.getDeviceState()) {
                     // 블루투스가 지원 가능한 기기일 때
@@ -83,29 +66,7 @@ public class BluetoothActivity extends Activity implements OnClickListener {
                     finish();
                 }
                 break;
-            case R.id.btn_service_start:
 
-                intent = new Intent(getApplicationContext(),//현재제어권자
-                    Service.class); // 이동할 컴포넌트
-
-                startService(intent); // 서비스 시작
-
-                Toast.makeText(this, "Service Start", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.btn_service_stop:
-                intent = new Intent(getApplicationContext(),//현재제어권자
-                        Service.class); // 이동할 컴포넌트
-
-                stopService(intent); // 서비스 시작
-
-                Toast.makeText(this, "Service Stop", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.btn_h_test:
-                intent = new Intent(getApplicationContext(), H_testActivity.class);
-                startActivity(intent);
-                break;
             case R.id.btn_service:
                 if (btService.getDeviceState()) {
                     // 블루투스가 지원 가능한 기기일 때

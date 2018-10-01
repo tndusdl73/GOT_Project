@@ -34,7 +34,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity android:name=".BluetoothActivity" />
-        <activity android:name=".H_testActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".ReadBookActivity" />
         <activity android:name=".BookListActivity" />
@@ -47,14 +46,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device"
             android:theme="@android:style/Theme.Holo.Dialog" />
-        <activity android:name=".BleActivity" />
         <activity
             android:name=".DeviceList_2_Activity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device"
             android:theme="@android:style/Theme.Holo.Dialog" />
-
-        <service android:name=".Service" />
 
         <activity android:name=".FindingActivity"></activity>
     </application>
