@@ -27,11 +27,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Set;
@@ -49,7 +46,7 @@ public class DeviceList_2_Activity extends Activity {
      */
     private static final String TAG = "DeviceListActivity";
 
-    private static boolean baby_flag = false;
+    private static boolean baby_flag = true;
 
     /**
      * Return Intent extra
@@ -89,31 +86,11 @@ public class DeviceList_2_Activity extends Activity {
 
 
 
-        // Initialize the button to perform device discovery
-//        scanButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                doDiscovery();
-//                v.setVisibility(View.GONE);
-//            }
-//        });
-
-
-
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
         ArrayAdapter<String> pairedDevicesArrayAdapter =
                 new ArrayAdapter<String>(this, R.layout.device_name);
         mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
-
-        // Find and set up the ListView for paired devices
-//        ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
-//        pairedListView.setAdapter(pairedDevicesArrayAdapter);
-//        pairedListView.setOnItemClickListener(mDeviceClickListener);
-
-        // Find and set up the ListView for newly discovered devices
-//        ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
-//        newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
-//        newDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -159,15 +136,16 @@ public class DeviceList_2_Activity extends Activity {
             int second = 0;
             while (true) {
                 second++;
-//                flag = false;
                 try {
                     // 스레드에게 수행시킬 동작들 구현
 
                     baby_flag = false;
 
+                    Log.d("ScanDevice", "쓰레드 시작,, flag는 " + baby_flag);
+
                     doDiscovery();
 
-                    Thread.sleep(10000); // 10초간 Thread를 잠재운다
+                    Thread.sleep(15000); // 10초간 Thread를 잠재운다
 
                 }
 
@@ -219,32 +197,6 @@ public class DeviceList_2_Activity extends Activity {
         mBtAdapter.startDiscovery();
     }
 
-    /**
-     * The on-click listener for all devices in the ListViews
-     */
-    private AdapterView.OnItemClickListener mDeviceClickListener
-            = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
-            // Cancel discovery because it's costly and we're about to connect
-            mBtAdapter.cancelDiscovery();
-
-            // Get the device MAC address, which is the last 17 chars in the View
-            String info = ((TextView) v).getText().toString();
-            String address = info.substring(info.length() - 17);
-
-            editor.putString("Mac", address);     //preference에 password 값과 자동로그인을 넣어둔다
-            editor.commit();
-            Log.d("DeviceList", "Mac 주소는 : " + auto_login.getString("Mac", ""));
-
-            // Create the result Intent and include the MAC address
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
-
-            // Set result and finish this Activity
-            setResult(Activity.RESULT_OK, intent);
-            finish();
-        }
-    };
 
     /**
      * The BroadcastReceiver that listens for discovered devices and changes the title when
@@ -263,14 +215,17 @@ public class DeviceList_2_Activity extends Activity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-//                    mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                     if(device.getAddress().equals(auto_login.getString("Mac", ""))){
                         baby_flag = true;
+
+                        Log.d("ScanDevice", "둘이 똑같애!!");
                     }
                     Log.d("ScanDevice", device.getAddress() + "   " + auto_login.getString("Mac", ""));
                 }
                 // When discovery is finished, change the Activity title
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+            }
+
+            if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
 //                setProgressBarIndeterminateVisibility(false);
                 setTitle("미아방지모드 실행중...");
 //                if (mNewDevicesArrayAdapter.getCount() == 0) {
@@ -279,13 +234,15 @@ public class DeviceList_2_Activity extends Activity {
 //
 //                }
                 Log.d("ScanDevice", String.valueOf(baby_flag));
+
                 if(baby_flag == true){
                     Toast.makeText(context, "근처에 아이가 있어요", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    Log.d("ScanDevice", "애가 없어졌어요");
                     Toast.makeText(context, "아이가 없어졌어요!!!", Toast.LENGTH_SHORT).show();
                     Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);// (Context.VIBRATE_SERVICE)
-                    long millisecond = 1000;  // 1초
+                    long millisecond = 200;  // 0.2초
                     vibrator.vibrate(millisecond);
                 }
             }
