@@ -21,6 +21,7 @@ public class BluetoothActivity extends Activity implements OnClickListener {
     // Layout
     private Button btn_Connect;
     private Button btn_Service;
+    private Button service_off;
 
     private BluetoothService btService = null;
 
@@ -43,9 +44,11 @@ public class BluetoothActivity extends Activity implements OnClickListener {
         /** Main Layout **/
         btn_Connect = (Button) findViewById(R.id.btn_connect);
         btn_Service = (Button) findViewById(R.id.btn_service);
+        service_off = (Button) findViewById(R.id.service_off);
 
         btn_Connect.setOnClickListener(this);
         btn_Service.setOnClickListener(this);
+        service_off.setOnClickListener(this);
 
         // BluetoothService 클래스 생성
         if (btService == null) {
@@ -71,10 +74,18 @@ public class BluetoothActivity extends Activity implements OnClickListener {
                 if (btService.getDeviceState()) {
                     // 블루투스가 지원 가능한 기기일 때
                     btService.enableBluetooth();
-                    btService.checkDevice();
+//                    btService.checkDevice();
+                    Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                    startService(serviceIntent);
+
                 } else {
                     finish();
                 }
+                break;
+
+            case R.id.service_off:
+                Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                stopService(serviceIntent);
                 break;
 
         }

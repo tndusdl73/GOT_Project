@@ -29,5 +29,14 @@ tools:context=".MainActivity" >
         android:layout_marginRight="129dp"
         android:text="미아방지모드ON" />
 
+    <Button
+        android:id="@+id/service_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_connect"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="104dp"
+        android:text="OFF" />
+
 
 </RelativeLayout>

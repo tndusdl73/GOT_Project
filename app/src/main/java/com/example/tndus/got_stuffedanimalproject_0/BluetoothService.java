@@ -47,6 +47,9 @@ public class BluetoothService {
     private static final int STATE_CONNECTED = 3; // now connected to a remote
     // device
 
+    public DeviceList_2_Activity dl = new DeviceList_2_Activity();
+
+
     // Constructors
     public BluetoothService(Activity ac, Handler h) {
         mActivity = ac;
@@ -116,9 +119,10 @@ public class BluetoothService {
         Log.d(TAG, "Check Device");
 
 
-        Intent serverIntent = new Intent(mActivity, DeviceList_2_Activity.class);
-        mActivity.startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+//        Intent serverIntent = new Intent(mActivity, DeviceList_2_Activity.class);
+//        mActivity.startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
     }
+
 
     /**
      * after scanning and get device info

@@ -1,22 +1,7 @@
 package com.example.tndus.got_stuffedanimalproject_0;
-/*
- * Copyright (C) 2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 
 import android.app.Activity;
+import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -24,7 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Vibrator;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -32,26 +17,16 @@ import android.widget.Toast;
 
 import java.util.Set;
 
-/**
- * This Activity appears as a dialog. It lists any paired devices and
- * devices detected in the area after discovery. When a device is chosen
- * by the user, the MAC address of the device is sent back to the parent
- * Activity in the result Intent.
- */
-public class DeviceList_2_Activity extends Activity {
+public class FindingService extends Service {
 
-    /**
-     * Tag for Log
-     */
-    private static final String TAG = "DeviceListActivity";
-
+    private static final String TAG = "Service";
     private static boolean baby_flag = true;
 
 
     /**
      * Member fields
      */
-    private BluetoothAdapter mBtAdapter;
+    private static BluetoothAdapter mBtAdapter;
 
     /**
      * Newly discovered devices
@@ -61,16 +36,23 @@ public class DeviceList_2_Activity extends Activity {
     SharedPreferences auto_login;
     SharedPreferences.Editor editor;
 
-    public CheckThread thread;
-
-
+    public bt_CheckThread thread = new bt_CheckThread();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public IBinder onBind(Intent intent) {
+        // Service 객체와 (화면단 Activity 사이에서)
+        // 통신(데이터를 주고받을) 때 사용하는 메서드
+        // 데이터를 전달할 필요가 없으면 return null;
+        Log.d("Service", "서비스의 onBind");
 
-        // Set result CANCELED in case the user backs out
-        setResult(Activity.RESULT_CANCELED);
+        return null;
+    }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // 서비스에서 가장 먼저 호출됨(최초에 한번만)
+        Log.d("Service", "서비스의 onCreate");
+
 
         auto_login = getSharedPreferences("auto", Activity.MODE_PRIVATE);   // 프리퍼런스를 생성하고 auto라는 이름을 붙혀준다
         editor = auto_login.edit();
@@ -79,9 +61,9 @@ public class DeviceList_2_Activity extends Activity {
 
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
-        ArrayAdapter<String> pairedDevicesArrayAdapter =
-                new ArrayAdapter<String>(this, R.layout.device_name);
-        mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
+//        ArrayAdapter<String> pairedDevicesArrayAdapter =
+//                new ArrayAdapter<String>(this, R.layout.device_name);
+//        mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
 
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -98,28 +80,58 @@ public class DeviceList_2_Activity extends Activity {
         Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
 
         // If there are paired devices, add each one to the ArrayAdapter
-        if (pairedDevices.size() > 0) {
-//            findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
-            for (BluetoothDevice device : pairedDevices) {
-                pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-            }
-        } else {
-            String noDevices = getResources().getText(R.string.none_paired).toString();
-            pairedDevicesArrayAdapter.add(noDevices);
-        }
+//        if (pairedDevices.size() > 0) {
+////            findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
+//            for (BluetoothDevice device : pairedDevices) {
+//                pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+//            }
+//        } else {
+//            String noDevices = getResources().getText(R.string.none_paired).toString();
+//            pairedDevicesArrayAdapter.add(noDevices);
+//        }
 
-        setProgressBarIndeterminateVisibility(true);
+    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // 서비스가 호출될 때마다 실행
+        Log.d("Service", "서비스의 onStartCommand");
 
-        thread = new CheckThread();
 
         thread.start();
 
-
+        return super.onStartCommand(intent, flags, startId);
     }
 
-    public  class CheckThread extends Thread {
-        private  final String TAG = "CheckThread";
-        public CheckThread() {
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        // 서비스가 종료될 때 실행
+//
+//        thread.interrupt();
+//
+//        Log.d("Service", "서비스의 onDestroy");
+//    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // Make sure we're not doing discovery anymore
+        if (mBtAdapter != null) {
+            mBtAdapter.cancelDiscovery();
+        }
+
+        thread.interrupt();
+
+        // Unregister broadcast listeners
+        this.unregisterReceiver(mReceiver);
+    }
+
+
+    public static class bt_CheckThread extends Thread {
+        private static final String TAG = "CheckThread";
+        public bt_CheckThread() {
             // 초기화 작업
 
         }
@@ -152,25 +164,11 @@ public class DeviceList_2_Activity extends Activity {
 
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // Make sure we're not doing discovery anymore
-        if (mBtAdapter != null) {
-            mBtAdapter.cancelDiscovery();
-        }
-
-        thread.interrupt();
-
-        // Unregister broadcast listeners
-        this.unregisterReceiver(mReceiver);
-    }
 
     /**
      * Start device discover with the BluetoothAdapter
      */
-    private void doDiscovery() {
+    private static void doDiscovery() {
         Log.d(TAG, "doDiscovery()");
 
         // Indicate scanning in the title
@@ -238,5 +236,7 @@ public class DeviceList_2_Activity extends Activity {
             }
         }
     };
+
+
 
 }

@@ -49,10 +49,13 @@
         <activity
             android:name=".DeviceList_2_Activity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/select_device"
+            android:label="@string/finding_child"
             android:theme="@android:style/Theme.Holo.Dialog" />
 
         <activity android:name=".FindingActivity"></activity>
+
+        <service android:name="FindingService"></service>
+
     </application>
 
 </manifest>
