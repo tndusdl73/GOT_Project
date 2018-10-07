@@ -15,6 +15,7 @@ public class ReadBookActivity extends AppCompatActivity {
 
         Button bookListButton = (Button)findViewById(R.id.bookListButton);
         Button bookDownloadButton = (Button)findViewById(R.id.bookDownloadButton);
+        Button bookRecordButton = (Button)findViewById(R.id.bookRecordButton);
 
         bookListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,14 @@ public class ReadBookActivity extends AppCompatActivity {
                 ReadBookActivity.this.startActivity(bookDownloadIntent);
             }
         });
+        bookRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bookRecordIntent = new Intent(ReadBookActivity.this,AudioRecordActivity.class);
+                ReadBookActivity.this.startActivity(bookRecordIntent);
+            }
+        });
+
 
 
     }
