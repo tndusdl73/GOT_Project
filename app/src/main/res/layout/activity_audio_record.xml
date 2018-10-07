@@ -5,7 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AudioRecorderActivity">
+    tools:context=".AudioRecordActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="19dp"
+        android:gravity="center_horizontal"
+        android:text="직접 녹음한 음성을 스마트인형에\n전송해 아이에게 들려주세요"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -57,12 +68,13 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
         android:background="@null">
+
         <Button
             android:id="@+id/btnStartRec"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="Rec" />
+            android:text="Rec"
+            android:textSize="14sp" />
     </LinearLayout>
 
 

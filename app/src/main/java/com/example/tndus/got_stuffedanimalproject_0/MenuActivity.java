@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         readBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent readBookIntent = new Intent(MenuActivity.this, ReadBookActivity.class);
+                Intent readBookIntent = new Intent(MenuActivity.this, AudioRecordActivity.class);
                 MenuActivity.this.startActivity(readBookIntent);
             }
         });
