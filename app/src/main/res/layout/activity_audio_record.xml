@@ -132,17 +132,4 @@
             android:text="Stop" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/fileName"
-        android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:ems="10"
-        android:hint="저장할 파일 명"
-        android:inputType="textPersonName" />
-
-    <Button
-        android:id="@+id/fileNameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="파일 명 저장" />
 </LinearLayout>
