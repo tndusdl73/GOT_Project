@@ -8,6 +8,7 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -92,11 +93,6 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_record);
 
-        Button setFileNameButton = (Button) findViewById(R.id.fileNameButton);
-
-        EditText fileName = (EditText) findViewById(R.id.fileName);
-        String sFileName = fileName.toString();
-
         // 미디어 레코더 저장할 파일 생성
         mFilePath = "/sdcard/GOTBOOK";
 
@@ -119,6 +115,14 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
         mBtnStartPlay.setOnClickListener(this);
         mBtnStopPlay.setOnClickListener(this);
 
+        Button uploadButton = (Button)findViewById(R.id.uploadButton);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent uploadIntent = new Intent(AudioRecordActivity.this,AudioUploadActivity.class);
+                AudioRecordActivity.this.startActivity(uploadIntent);
+            }
+        });
     }
 
     // 버튼의 OnClick 이벤트 리스너
