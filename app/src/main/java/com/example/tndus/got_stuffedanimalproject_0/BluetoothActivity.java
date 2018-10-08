@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 public class BluetoothActivity extends Activity implements OnClickListener {
     // Debugging
@@ -20,8 +22,10 @@ public class BluetoothActivity extends Activity implements OnClickListener {
 
     // Layout
     private Button btn_Connect;
-    private Button btn_Service;
-    private Button service_off;
+//    private Button btn_Service;
+//    private Button service_off;
+
+    private Switch baby_service;
 
     private BluetoothService btService = null;
 
@@ -43,12 +47,36 @@ public class BluetoothActivity extends Activity implements OnClickListener {
 
         /** Main Layout **/
         btn_Connect = (Button) findViewById(R.id.btn_connect);
-        btn_Service = (Button) findViewById(R.id.btn_service);
-        service_off = (Button) findViewById(R.id.service_off);
+//        btn_Service = (Button) findViewById(R.id.btn_service);
+//        service_off = (Button) findViewById(R.id.service_off);
+
+        baby_service = (Switch) findViewById(R.id.switch1);
 
         btn_Connect.setOnClickListener(this);
-        btn_Service.setOnClickListener(this);
-        service_off.setOnClickListener(this);
+//        btn_Service.setOnClickListener(this);
+//        service_off.setOnClickListener(this);
+
+        baby_service.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){  //  스위치가 체크되어있으면 ,, 미아방지모드가 켜지면
+                    if (btService.getDeviceState()) {
+                        // 블루투스가 지원 가능한 기기일 때
+                        btService.enableBluetooth();
+//                    btService.checkDevice();
+                        Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                        startService(serviceIntent);
+
+                    } else {
+                        finish();
+                    }
+                }
+                else{           //스위치가 체크 안돼있으면,, 미아방지모드가 꺼지면
+                    Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                    stopService(serviceIntent);
+                }
+            }
+        });
 
         // BluetoothService 클래스 생성
         if (btService == null) {
@@ -70,23 +98,23 @@ public class BluetoothActivity extends Activity implements OnClickListener {
                 }
                 break;
 
-            case R.id.btn_service:
-                if (btService.getDeviceState()) {
-                    // 블루투스가 지원 가능한 기기일 때
-                    btService.enableBluetooth();
-//                    btService.checkDevice();
-                    Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
-                    startService(serviceIntent);
-
-                } else {
-                    finish();
-                }
-                break;
-
-            case R.id.service_off:
-                Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
-                stopService(serviceIntent);
-                break;
+//            case R.id.btn_service:
+//                if (btService.getDeviceState()) {
+//                    // 블루투스가 지원 가능한 기기일 때
+//                    btService.enableBluetooth();
+////                    btService.checkDevice();
+//                    Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+//                    startService(serviceIntent);
+//
+//                } else {
+//                    finish();
+//                }
+//                break;
+//
+//            case R.id.service_off:
+//                Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+//                stopService(serviceIntent);
+//                break;
 
         }
 

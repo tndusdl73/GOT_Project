@@ -4,15 +4,47 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
 
     SharedPreferences sp_id;
     SharedPreferences.Editor editor;
+
+    private static final String TAG = "Main";
+
+    // Intent request code
+    private static final int REQUEST_CONNECT_DEVICE = 1;
+    private static final int REQUEST_ENABLE_BT = 2;
+
+    // Layout
+    private Button btn_Connect;
+//    private Button btn_Service;
+//    private Button service_off;
+
+    private Switch baby_service;
+
+    private BluetoothService btService = null;
+
+    private final Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +66,22 @@ public class MenuActivity extends AppCompatActivity {
         Button cctvButton = (Button) findViewById(R.id.cctvButton);
         Button mypageButton = (Button) findViewById(R.id.mypageButton);
         Button settingButton = (Button) findViewById(R.id.settingButton);
+
+        baby_service = (Switch) findViewById(R.id.switch1);
+
+        TextView tv_connect = (TextView) findViewById(R.id.tv_connect);
+
+        String Macadd = sp_id.getString("Mac", "");
+
+        if(Macadd != null){
+            tv_connect.setText(Macadd + "기기가 등록되어있습니다.");
+        }
+
+        // BluetoothService 클래스 생성
+        if (btService == null) {
+            btService = new BluetoothService(this, mHandler);
+        }
+
 
         readBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +110,13 @@ public class MenuActivity extends AppCompatActivity {
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingIntent = new Intent(MenuActivity.this, BluetoothActivity.class);
-                MenuActivity.this.startActivity(settingIntent);
+                if (btService.getDeviceState()) {
+                    // 블루투스가 지원 가능한 기기일 때
+                    btService.enableBluetooth();
+                    btService.scanDevice();
+                } else {
+                    finish();
+                }
             }
         });
 
@@ -88,5 +141,56 @@ public class MenuActivity extends AppCompatActivity {
         });
 
 
+        baby_service.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){  //  스위치가 체크되어있으면 ,, 미아방지모드가 켜지면
+                    if (btService.getDeviceState()) {
+                        // 블루투스가 지원 가능한 기기일 때
+                        btService.enableBluetooth();
+//                    btService.checkDevice();
+                        Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                        startService(serviceIntent);
+
+                    } else {
+                        finish();
+                    }
+                }
+                else{           //스위치가 체크 안돼있으면,, 미아방지모드가 꺼지면
+                    Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                    stopService(serviceIntent);
+                }
+            }
+        });
+
+
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult, resultCode " + resultCode);
+        Log.d(TAG, "onActivityResult, requestCode " + requestCode);
+
+        switch (requestCode) {
+
+            /** 추가된 부분 시작 **/
+            case REQUEST_CONNECT_DEVICE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    btService.getDeviceInfo(data);
+                }
+                break;
+            /** 추가된 부분 끝 **/
+            case REQUEST_ENABLE_BT:
+                // When the request to enable Bluetooth returns
+                if (resultCode == Activity.RESULT_OK) {
+                    // Next Step
+                    btService.scanDevice();
+                } else {
+
+                    Log.d(TAG, "Bluetooth is not enabled");
+                }
+                break;
+        }
     }
 }
