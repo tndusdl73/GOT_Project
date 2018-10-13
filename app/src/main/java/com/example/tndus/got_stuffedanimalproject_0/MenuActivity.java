@@ -1,6 +1,7 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class MenuActivity extends AppCompatActivity {
     // Intent request code
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+    private static final int REQUEST_CHANGE_MAC = 3;
 
     // Layout
     private Button btn_Connect;
@@ -32,6 +34,8 @@ public class MenuActivity extends AppCompatActivity {
 //    private Button service_off;
 
     private Switch baby_service;
+
+    TextView tv_connect;
 
     private BluetoothService btService = null;
 
@@ -45,11 +49,28 @@ public class MenuActivity extends AppCompatActivity {
     };
 
 
+    protected void onStart() {
 
+        Log.d("life", "onstart");
+        super.onStart();
+    }
+
+    protected void onResume() {
+
+        Log.d("life", "onresume");
+
+        String Macadd = sp_id.getString("Mac", "");
+
+        if(Macadd != null){
+            tv_connect.setText(Macadd + "기기가 등록되어있습니다.");
+        }
+        super.onResume();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        Log.d("life", "oncreate");
 
         Intent intent = getIntent();
         String userID = intent.getStringExtra("userID");
@@ -62,14 +83,14 @@ public class MenuActivity extends AppCompatActivity {
 
 
         Button logoutButton= (Button) findViewById(R.id.button_logout);
-        Button readBookButton = (Button) findViewById(R.id.readBookButton);
-        Button cctvButton = (Button) findViewById(R.id.cctvButton);
-        Button mypageButton = (Button) findViewById(R.id.mypageButton);
-        Button settingButton = (Button) findViewById(R.id.settingButton);
+        View readBookButton = (View) findViewById(R.id.readBookButton);
+        View cctvButton = (View) findViewById(R.id.cctvButton);
+        View mypageButton = (View) findViewById(R.id.mypageButton);
+        View settingButton = (View) findViewById(R.id.settingButton);
 
         baby_service = (Switch) findViewById(R.id.switch1);
 
-        TextView tv_connect = (TextView) findViewById(R.id.tv_connect);
+        tv_connect = (TextView) findViewById(R.id.tv_connect);
 
         String Macadd = sp_id.getString("Mac", "");
 
@@ -82,6 +103,9 @@ public class MenuActivity extends AppCompatActivity {
             btService = new BluetoothService(this, mHandler);
         }
 
+        if(isServiceRunningCheck()){       //서비스가 실행중이면
+            baby_service.setChecked(true);
+        }
 
         readBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +190,15 @@ public class MenuActivity extends AppCompatActivity {
 
 
     }
+    public boolean isServiceRunningCheck() {
+        ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("com.example.tndus.got_stuffedanimalproject_0.FindingService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult, resultCode " + resultCode);
@@ -190,6 +223,14 @@ public class MenuActivity extends AppCompatActivity {
 
                     Log.d(TAG, "Bluetooth is not enabled");
                 }
+                break;
+            case REQUEST_CHANGE_MAC:
+
+                if (resultCode == Activity.RESULT_OK) {
+                    tv_connect.setText(getIntent().getExtras().getString("address") + "기기가 등록되었습니다.");
+                }
+
+
                 break;
         }
     }

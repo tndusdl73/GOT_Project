@@ -188,11 +188,13 @@ public class DeviceListActivity extends Activity {
             Log.d("DeviceList", "Mac 주소는 : " + auto_login.getString("Mac", ""));
 
             // Create the result Intent and include the MAC address
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
 
-            // Set result and finish this Activity
-            setResult(Activity.RESULT_OK, intent);
+//
+//            Intent intent = new Intent();
+//            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+//
+//            // Set result and finish this Activity
+//            setResult(Activity.RESULT_OK, intent);
             finish();
         }
     };

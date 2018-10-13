@@ -230,7 +230,7 @@ public class FindingService extends Service {
                     Log.d("ScanDevice", "애가 없어졌어요");
                     Toast.makeText(context, "아이가 없어졌어요!!!", Toast.LENGTH_SHORT).show();
                     Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);// (Context.VIBRATE_SERVICE)
-                    long millisecond = 200;  // 0.2초
+                    long millisecond = 1000;  // 0.2초
                     vibrator.vibrate(millisecond);
                 }
             }
