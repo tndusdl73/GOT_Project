@@ -21,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
     SharedPreferences sp_id;
     SharedPreferences.Editor editor;
 
+    String userID;
     private static final String TAG = "Main";
 
     // Intent request code
@@ -73,8 +74,8 @@ public class MenuActivity extends AppCompatActivity {
         Log.d("life", "oncreate");
 
         Intent intent = getIntent();
-        String userID = intent.getStringExtra("userID");
-        String userPassword = intent.getStringExtra("userPassword");
+        userID = intent.getStringExtra("userID");
+        final String userPassword = intent.getStringExtra("userPassword");
         String message = "환영합니다," + userID + "님!";
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
@@ -85,7 +86,7 @@ public class MenuActivity extends AppCompatActivity {
         Button logoutButton= (Button) findViewById(R.id.button_logout);
         View readBookButton = (View) findViewById(R.id.readBookButton);
         View cctvButton = (View) findViewById(R.id.cctvButton);
-        View mypageButton = (View) findViewById(R.id.mypageButton);
+        final View mypageButton = (View) findViewById(R.id.mypageButton);
         View settingButton = (View) findViewById(R.id.settingButton);
 
         baby_service = (Switch) findViewById(R.id.switch1);
@@ -127,7 +128,10 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mypageIntent = new Intent(MenuActivity.this, MypageActivity.class);
+                mypageIntent.putExtra("userID",userID);
+                mypageIntent.putExtra("userPassword",userPassword);
                 MenuActivity.this.startActivity(mypageIntent);
+
             }
         });
 

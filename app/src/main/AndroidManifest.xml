@@ -57,7 +57,9 @@
 
         <service android:name=".FindingService" />
 
-        <activity android:name=".AudioUploadActivity"></activity>
+        <activity android:name=".AudioUploadActivity" />
+        <activity android:name=".MypageTestActivity" />
+        <activity android:name=".EditUserInfoActivity"></activity>
     </application>
 
 </manifest>

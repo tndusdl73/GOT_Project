@@ -11,7 +11,8 @@
         android:layout_height="551dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView5"
@@ -23,7 +24,7 @@
             android:id="@+id/idText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+             />
 
         <TextView
             android:id="@+id/textView7"
@@ -48,11 +49,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
-
-        <Button
-            android:id="@+id/editButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회원정보 수정하기" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -30,11 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
     CheckBox ckbox_autologin;
 
-
     SharedPreferences auto_login;
     SharedPreferences.Editor editor;
-
-
 
 
     @Override
@@ -152,11 +149,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         String userID = jsonResponse.getString("userID");
                         String userPassword = jsonResponse.getString("userPassword");
+                        //Log.d("djfdkjfsldkjfs",jsonResponse.getString("userAge"));
 
                         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
 
                         intent.putExtra("userID",userID);
                         intent.putExtra("userPassword",userPassword);
+
 
                         intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
 
