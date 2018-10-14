@@ -5,26 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CctvActivity">
+    tools:context=".CctvListActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="날짜를 선택해주세요"
+        android:text="TextView"
         android:textSize="25sp"
         android:gravity="center_horizontal"/>
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <ListView
+        android:id="@+id/cctvListView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:showWeekNumber="false"
-        />
-
-    <Button
-        android:id="@+id/selectButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="select" />
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -120,6 +120,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cctvIntent = new Intent(MenuActivity.this, CctvActivity.class);
+                cctvIntent.putExtra("userID",userID);
                 MenuActivity.this.startActivity(cctvIntent);
             }
         });

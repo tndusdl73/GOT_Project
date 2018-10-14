@@ -59,7 +59,8 @@
 
         <activity android:name=".AudioUploadActivity" />
         <activity android:name=".MypageTestActivity" />
-        <activity android:name=".EditUserInfoActivity"></activity>
+        <activity android:name=".EditUserInfoActivity" />
+        <activity android:name=".CctvListActivity"></activity>
     </application>
 
 </manifest>
