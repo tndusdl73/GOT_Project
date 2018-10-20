@@ -1,16 +1,12 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -107,6 +103,8 @@ public class MypageActivity extends AppCompatActivity {
                 ageText.setText(userAg);
             }
         };
+
+
         LoginRequest loginRequest = new LoginRequest(userID,userPassword,responseListener);
         RequestQueue queue = Volley.newRequestQueue(MypageActivity.this);
         queue.add(loginRequest);

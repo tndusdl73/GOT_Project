@@ -1,25 +1,15 @@
 package com.example.tndus.got_stuffedanimalproject_0;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.nfc.Tag;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
@@ -27,10 +17,15 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
@@ -138,7 +133,7 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
 
         // 파일명 위에서 정한 파일명을 GOTBOOK 폴더에 저장   //파일명은 book.mp4
         mFileName = "/book"
-                + ".mp4";
+                + ".mp3";
 
         mBtnStartRec = (Button) findViewById(R.id.btnStartRec);
         mBtnStartPlay = (Button) findViewById(R.id.btnStartPlay);
@@ -468,7 +463,7 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
             //장치로부터 메모리 주소를 얻어낸 뒤, 파일명을 가지고 찾는다.
             //현재 이것은 내장메모리 루트폴더에 있는 것.
             //File f = new File(Environment.getExternalStorageDirectory()+"/book.mp4");
-            File f = new File("sdcard/GOTBOOK/book.mp4");
+            File f = new File("sdcard/GOTBOOK/book.mp3");
             // Upload file
             uploadFile(f);
         }

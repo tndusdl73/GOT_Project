@@ -9,15 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MypageRequest extends StringRequest {
-    final static private String URL = "http://tndusdl73.cafe24.com/Login.php";
+    final static private String URL = "http://tndusdl73.cafe24.com/getUserInfo.php";
     private Map<String, String> parameters;
 
-    public MypageRequest(String userID, String userPassword, Response.Listener<String>listener){
+    public MypageRequest(String userID, Response.Listener<String>listener){
         super(Method.POST,URL,listener,null);
         parameters = new HashMap<>();
         Log.d("77777777777",userID);
         parameters.put("userID",userID);
-        parameters.put("userPassword",userPassword);
+//        parameters.put("userPassword",userPassword);
         Log.d("7777777777557","putputputput");
 
         //parameters.put("userPassword",userPassword);
