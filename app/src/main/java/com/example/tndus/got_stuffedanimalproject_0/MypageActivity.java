@@ -51,9 +51,15 @@ public class MypageActivity extends AppCompatActivity {
 
             }
         });
-        insertToDatabase();
+//        insertToDatabase();
 
      }
+
+    protected void onResume() {
+
+        insertToDatabase();
+        super.onResume();
+    }
 
     public void insertToDatabase(){
         Intent intent = getIntent();

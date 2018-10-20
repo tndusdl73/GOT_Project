@@ -33,6 +33,9 @@ import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
 public class AudioRecordActivity extends Activity implements View.OnClickListener, OnCompletionListener {
 
+    final static int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 100;
+    final static int MY_PERMISSIONS_REQUEST_RECORD_AUDIO = 200;
+
     // 미리 상수 선언
     private static final int REC_STOP = 0;
     private static final int RECORDING = 1;
@@ -70,7 +73,7 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
 
 
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};//권한 설정 변수
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO};//권한 설정 변수
     private static final int MULTIPLE_PERMISSIONS = 101;//권한 동의 여부 문의 후 callback함수에 쓰일 변수
 
     Button btn;
@@ -133,7 +136,7 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
 
         // 파일명 위에서 정한 파일명을 GOTBOOK 폴더에 저장   //파일명은 book.mp4
         mFileName = "/book"
-                + ".mp3";
+                + ".wav";
 
         mBtnStartRec = (Button) findViewById(R.id.btnStartRec);
         mBtnStartPlay = (Button) findViewById(R.id.btnStartPlay);
@@ -200,6 +203,9 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
     // 녹음시작
     @SuppressLint("WrongConstant")
     private void startRec() {
+
+//        checkPermission();
+
         mCurRecTimeMs = 0;
         mCurProgressTimeDisplay = 0;
 
@@ -463,7 +469,7 @@ public class AudioRecordActivity extends Activity implements View.OnClickListene
             //장치로부터 메모리 주소를 얻어낸 뒤, 파일명을 가지고 찾는다.
             //현재 이것은 내장메모리 루트폴더에 있는 것.
             //File f = new File(Environment.getExternalStorageDirectory()+"/book.mp4");
-            File f = new File("sdcard/GOTBOOK/book.mp3");
+            File f = new File("sdcard/GOTBOOK/book.wav");
             // Upload file
             uploadFile(f);
         }
