@@ -67,7 +67,7 @@ String date;
             public void onClick(View v) {
                 Intent intent = getIntent();
                 final String userID = intent.getStringExtra("userID");
-                Intent dateIntent = new Intent(CctvActivity.this,CctvListActivity.class);
+                Intent dateIntent = new Intent(CctvActivity.this,CctvListTestActivity.class);
                 dateIntent.putExtra("date",date);
                 dateIntent.putExtra("userID",userID);
                 //Log.d("cctvlogogggggg",userID);

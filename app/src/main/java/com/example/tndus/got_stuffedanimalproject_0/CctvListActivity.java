@@ -58,9 +58,9 @@ public class CctvListActivity extends AppCompatActivity {
                         String index = jsonResponse.getString("index");
                         String fileName = jsonResponse.getString("fileName");
 
-                        //Log.d("onsertwoTrhrer",title);
-                        //Log.d("odfjsoidf",index);
-                        //Log.d("djfdkjfsldkjfs",fileName);
+                        Log.d("onsertwoTrhrer",title);
+                        Log.d("odfjsoidf",index);
+                        Log.d("djfdkjfsldkjfs",fileName);
 
                     }else{
                         String title = jsonResponse.getString("title");
