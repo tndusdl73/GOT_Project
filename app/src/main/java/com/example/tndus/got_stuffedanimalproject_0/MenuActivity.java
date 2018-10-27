@@ -29,6 +29,8 @@ public class MenuActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 2;
     private static final int REQUEST_CHANGE_MAC = 3;
 
+    FindingService.bt_CheckThread thread = new FindingService.bt_CheckThread();
+
     // Layout
     private Button btn_Connect;
 //    private Button btn_Service;
@@ -187,6 +189,7 @@ public class MenuActivity extends AppCompatActivity {
                 }
                 else{           //스위치가 체크 안돼있으면,, 미아방지모드가 꺼지면
                     Intent serviceIntent = new Intent(getApplicationContext(), FindingService.class);
+                    thread.interrupt();
                     stopService(serviceIntent);
                 }
             }
