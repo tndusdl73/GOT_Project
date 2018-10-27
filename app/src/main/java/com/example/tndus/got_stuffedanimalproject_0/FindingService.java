@@ -47,6 +47,8 @@ public class FindingService extends Service {
 
         return null;
     }
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -122,7 +124,15 @@ public class FindingService extends Service {
             mBtAdapter.cancelDiscovery();
         }
 
-        thread.interrupt();
+        Log.d("service", "디스트로이이이이잉니ㅣㅣㅣ이이ㅣ시바라랄ㄹㄹㄹ");
+//        thread.notify();
+
+//        thread.interrupt();
+        thread.threadStop(true);
+
+//        thread.stop();
+//        thread.interrupt();
+//        stopSelf();
 
         // Unregister broadcast listeners
         this.unregisterReceiver(mReceiver);
@@ -131,13 +141,15 @@ public class FindingService extends Service {
 
     public static class bt_CheckThread extends Thread {
         private static final String TAG = "CheckThread";
+        private boolean stop;
         public bt_CheckThread() {
             // 초기화 작업
-
+            this.stop = false;
         }
         public void run() {
             int second = 0;
-            while (true) {
+//            while (!Thread.currentThread().isInterrupted()) {
+            while(!stop){
                 second++;
                 try {
                     // 스레드에게 수행시킬 동작들 구현
@@ -158,7 +170,12 @@ public class FindingService extends Service {
 
                 Log.i("경과된 시간 : ", Integer.toString(second));
             }
+            Log.d(TAG, "쓰레드 실행 종료");
         }
+        public void threadStop(boolean stop){
+            this.stop = stop;
+        }
+
     }
 
 
