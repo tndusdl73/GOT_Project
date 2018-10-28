@@ -9,14 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -65,7 +66,10 @@ public class CctvListTestActivity extends AppCompatActivity implements View.OnCl
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
         mTextViewLabel = (TextView)findViewById(R.id.textView_main_label);
         //mEditTextSearchKeyword = (EditText) findViewById(R.id.editText_main_searchKeyword);
-        mTextViewLabel.setText(userID+"님의 "+day+"영상 목록");
+        mTextViewLabel.setText(userID+"님 \n" +
+                day.substring(0, 4) + "/" +
+                day.substring(4, 6) + "/" +
+                day.substring(6, 8)+"일의 영상 목록");
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
 
