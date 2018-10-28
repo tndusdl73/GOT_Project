@@ -64,9 +64,12 @@ public class MenuActivity extends AppCompatActivity {
 
         String Macadd = sp_id.getString("Mac", "");
 
-        if(Macadd != null){
+        if(!Macadd.equals("")){
+            Log.d("life", Macadd + "1111111");
             tv_connect.setText(Macadd + "기기가 등록되어있습니다.");
         }
+        else
+            Log.d("life", "된다!!!!!");
         super.onResume();
     }
     @Override
@@ -97,7 +100,8 @@ public class MenuActivity extends AppCompatActivity {
 
         String Macadd = sp_id.getString("Mac", "");
 
-        if(Macadd != null){
+        if(!Macadd.equals("")){
+            Log.d("life", Macadd + "1111111");
             tv_connect.setText(Macadd + "기기가 등록되어있습니다.");
         }
 
