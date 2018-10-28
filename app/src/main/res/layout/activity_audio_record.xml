@@ -7,15 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".AudioRecordActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
+        android:id="@+id/imageView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="19dp"
-        android:gravity="center_horizontal"
-        android:text="직접 녹음한 음성을 스마트인형에\n전송해 아이에게 들려주세요"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:layout_margin="10dp"
+        android:src="@drawable/recordmessage" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,57 +20,59 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
         android:background="@null">
+
         <SeekBar
             android:id="@+id/recProgressBar"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:max="60000"
             android:padding="10dp"
-            android:progress="0"/>
+            android:progress="0" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="27dp"
+            android:background="@null"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:background="@null">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvRecStartPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|left"
                 android:layout_alignParentLeft="true"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
+                android:layout_gravity="center_vertical|left"
                 android:text="00:00"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/tvRecMaxPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
                 android:layout_alignParentRight="true"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
+                android:layout_gravity="center_vertical|right"
                 android:text="00:20"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:gravity="center_vertical|center_horizontal"
-        android:background="@null">
+        android:layout_gravity="center"
+
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnStartRec"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Rec"
+            android:text="녹음"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -85,42 +84,42 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
         android:background="@null">
+
         <SeekBar
             android:id="@+id/playProgressBar"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:max="60000"
             android:padding="10dp"
-            android:progress="0"/>
+            android:progress="0" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="27dp"
+            android:background="@null"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:background="@null">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvPlayStartPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|left"
                 android:layout_alignParentLeft="true"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
+                android:layout_gravity="center_vertical|left"
                 android:text="00:00"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/tvPlayMaxPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
                 android:layout_alignParentRight="true"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
+                android:layout_gravity="center_vertical|right"
                 android:text="01:00"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -129,25 +128,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
+        android:layout_gravity="center"
         android:background="@null">
+
         <Button
             android:id="@+id/btnStartPlay"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="Play" />
+            android:text="재생"
+            android:textSize="14sp" />
+
         <Button
             android:id="@+id/btnStopPlay"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="Stop" />
+            android:text="정지"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/uploadButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="전송하기" />
+        android:layout_height="73dp"
+        android:text="인형에게 전송하기" />
 
 </LinearLayout>

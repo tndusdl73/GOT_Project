@@ -12,8 +12,9 @@
         android:id="@+id/textView_main_label"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:textSize="20dp"
+        android:textSize="27sp"
         android:gravity="center"
+        android:textStyle="bold"
         android:text="영상목록" />
 
     <ListView
