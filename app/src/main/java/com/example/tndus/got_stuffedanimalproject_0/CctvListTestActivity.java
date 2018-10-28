@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CctvListTestActivity extends AppCompatActivity implements View.OnClickListener{
+public class CctvListTestActivity extends AppCompatActivity{
 
     private static String TAG = "phpquerytest";
 
@@ -71,17 +71,12 @@ public class CctvListTestActivity extends AppCompatActivity implements View.OnCl
                 day.substring(4, 6) + "/" +
                 day.substring(6, 8)+"일의 영상 목록");
 
-        Button button_search = (Button) findViewById(R.id.button_main_search);
 
-        button_search.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
-                mArrayList.clear();
-                GetData task = new GetData();
-                task.execute(userID);
-            }
+//        mArrayList.clear();
+        GetData task = new GetData();
+        task.execute(userID);
 
-        });
         mArrayList = new ArrayList<>();
 
         //리스트뷰 선택했을때 이벤트처리
@@ -96,10 +91,6 @@ public class CctvListTestActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     private class GetData extends AsyncTask<String, Void, String> {
 
@@ -229,6 +220,11 @@ public class CctvListTestActivity extends AppCompatActivity implements View.OnCl
                 hashMap.put(TAG_FILENAME, fileName);
 
                 mArrayList.add(hashMap);
+
+                if(index.equals("-1")){
+                    mListViewList.setVisibility(View.INVISIBLE);
+                    Toast.makeText(this, "영상이 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             ListAdapter adapter = new SimpleAdapter(
