@@ -85,7 +85,7 @@ public class CctvListTestActivity extends AppCompatActivity{
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                num=String.valueOf(position+1);   //1부터 시작
+                num=String.valueOf(position);   //1부터 시작
                 //Log.d("position",String.valueOf(num));
 
                 Intent intent = new Intent(getApplicationContext(),PlayCctvActivity.class);

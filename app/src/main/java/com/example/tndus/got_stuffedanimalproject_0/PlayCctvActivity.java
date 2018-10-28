@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
@@ -28,6 +29,8 @@ public class PlayCctvActivity extends AppCompatActivity {
         fileName = intent.getStringExtra("fileName");
         index = intent.getStringExtra("index");
 
+        Log.d("indexPlay",index);
+        Log.d("fileNamePlay",fileName);
 
         videoView.setVideoURI(Uri.parse("http://tndusdl73.cafe24.com/video/"+fileName+"_"+index+".mp4"));
         videoView.requestFocus();
