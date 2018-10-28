@@ -13,7 +13,7 @@ import android.widget.VideoView;
 public class PlayCctvActivity extends AppCompatActivity {
 
     VideoView videoView;
-    MediaController mediaC;
+    MediaController mediaC;     //동영상 컨트롤러
 
     String fileName;
     @Override
