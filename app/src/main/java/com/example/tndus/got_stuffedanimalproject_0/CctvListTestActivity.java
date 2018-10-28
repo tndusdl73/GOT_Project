@@ -212,8 +212,8 @@ public class CctvListTestActivity extends AppCompatActivity{
             HashMap<String, String> hashMap = new HashMap<>();
 
             hashMap.put(TAG_INDEX, "번호");
-            hashMap.put(TAG_TITLE, "제목");
-            hashMap.put(TAG_FILENAME, "파일명");
+            //hashMap.put(TAG_TITLE, "제목");
+            hashMap.put(TAG_FILENAME, "날짜");
 
             mArrayList.add(hashMap);
 
@@ -221,23 +221,23 @@ public class CctvListTestActivity extends AppCompatActivity{
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String index = item.getString(TAG_INDEX);
-                String title = item.getString(TAG_TITLE);
+//                String index_1 = item.getString(TAG_INDEX);
+//                String title = item.getString(TAG_TITLE);
                 String fileName = item.getString(TAG_FILENAME);
 
 
                 hashMap = new HashMap<>();
-                Log.d("index",index);
+                //Log.d("index",i+1);
                 intentFilename = fileName;
 
 
-                hashMap.put(TAG_INDEX, index);
-                hashMap.put(TAG_TITLE, title);
+                hashMap.put(TAG_INDEX, String.valueOf(i+1));
+                //hashMap.put(TAG_TITLE, title);
                 hashMap.put(TAG_FILENAME, fileName);
 
                 mArrayList.add(hashMap);
 
-                if(index.equals("-1")){
+                if(item.getString(TAG_INDEX).equals("-1")){
                     mListViewList.setVisibility(View.INVISIBLE);
                     Toast.makeText(this, "영상이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -245,8 +245,8 @@ public class CctvListTestActivity extends AppCompatActivity{
 
             ListAdapter adapter = new SimpleAdapter(
                     CctvListTestActivity.this, mArrayList, R.layout.item_list,
-                    new String[]{TAG_INDEX, TAG_TITLE, TAG_FILENAME},
-                    new int[]{R.id.textView_list_id, R.id.textView_list_name, R.id.textView_list_address}
+                    new String[]{TAG_INDEX, TAG_FILENAME},
+                    new int[]{R.id.textView_list_id, R.id.textView_list_address}
             );
 
             mListViewList.setAdapter(adapter);
