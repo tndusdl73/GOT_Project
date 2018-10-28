@@ -208,6 +208,15 @@ public class CctvListTestActivity extends AppCompatActivity{
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
+
+            HashMap<String, String> hashMap = new HashMap<>();
+
+            hashMap.put(TAG_INDEX, "번호");
+            hashMap.put(TAG_TITLE, "제목");
+            hashMap.put(TAG_FILENAME, "파일명");
+
+            mArrayList.add(hashMap);
+
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject item = jsonArray.getJSONObject(i);
@@ -216,10 +225,11 @@ public class CctvListTestActivity extends AppCompatActivity{
                 String title = item.getString(TAG_TITLE);
                 String fileName = item.getString(TAG_FILENAME);
 
+
+                hashMap = new HashMap<>();
                 Log.d("index",index);
                 intentFilename = fileName;
 
-                HashMap<String, String> hashMap = new HashMap<>();
 
                 hashMap.put(TAG_INDEX, index);
                 hashMap.put(TAG_TITLE, title);
