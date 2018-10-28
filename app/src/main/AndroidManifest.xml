@@ -11,12 +11,12 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.MICROPHONE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
 
     <application
         android:allowBackup="true"
@@ -64,7 +64,8 @@
         <activity android:name=".MypageTestActivity" />
         <activity android:name=".EditUserInfoActivity" />
         <activity android:name=".CctvListActivity" />
-        <activity android:name=".CctvListTestActivity"></activity>
+        <activity android:name=".CctvListTestActivity" />
+        <activity android:name=".PlayCctvActivity"></activity>
     </application>
 
 </manifest>

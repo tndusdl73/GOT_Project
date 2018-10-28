@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -25,7 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CctvListTestActivity extends AppCompatActivity {
+public class CctvListTestActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static String TAG = "phpquerytest";
 
@@ -36,11 +37,14 @@ public class CctvListTestActivity extends AppCompatActivity {
 
     String userID;
     String day;
+    String intentFilename;
 
     private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mListViewList;
-    EditText mEditTextSearchKeyword;
+    TextView mTextViewLabel;
+    //EditText mEditTextSearchKeyword;
+
     String mJsonString;
 
     @Override
@@ -59,7 +63,9 @@ public class CctvListTestActivity extends AppCompatActivity {
 
         mTextViewResult = (TextView) findViewById(R.id.textView_main_result);
         mListViewList = (ListView) findViewById(R.id.listView_main_list);
-        mEditTextSearchKeyword = (EditText) findViewById(R.id.editText_main_searchKeyword);
+        mTextViewLabel = (TextView)findViewById(R.id.textView_main_label);
+        //mEditTextSearchKeyword = (EditText) findViewById(R.id.editText_main_searchKeyword);
+        mTextViewLabel.setText(userID+"님의 "+day+"영상 목록");
 
         Button button_search = (Button) findViewById(R.id.button_main_search);
 
@@ -68,11 +74,27 @@ public class CctvListTestActivity extends AppCompatActivity {
 
                 mArrayList.clear();
                 GetData task = new GetData();
-                task.execute(mEditTextSearchKeyword.getText().toString());
+                task.execute(userID);
             }
 
         });
         mArrayList = new ArrayList<>();
+
+        //리스트뷰 선택했을때 이벤트처리
+        mListViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(),PlayCctvActivity.class);
+                intent.putExtra("fileName",intentFilename);
+                Log.d("what is filename",intentFilename);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     private class GetData extends AsyncTask<String, Void, String> {
@@ -94,7 +116,7 @@ public class CctvListTestActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            mTextViewResult.setText(result);
+            //mTextViewResult.setText(result);
             Log.d(TAG, "response - " + result);
 
             if (result == null) {
@@ -194,6 +216,7 @@ public class CctvListTestActivity extends AppCompatActivity {
                 String fileName = item.getString(TAG_FILENAME);
 
                 Log.d("index",index);
+                intentFilename = fileName;
 
                 HashMap<String, String> hashMap = new HashMap<>();
 

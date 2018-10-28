@@ -19,25 +19,19 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText_main_searchKeyword"
-            android:layout_width="0dp"
-            android:layout_weight="0.7"
-            android:layout_height="match_parent" />
-
         <Button
             android:id="@+id/button_main_search"
             android:layout_width="0dp"
-            android:layout_weight="0.3"
             android:layout_height="match_parent"
-            android:text="Search" />
+            android:layout_weight="0.3"
+            android:text="목록 보기" />
     </LinearLayout>
 
     <ListView
+        android:id="@+id/listView_main_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
-        android:id="@+id/listView_main_list"/>
+        android:layout_height="339dp"
+        android:layout_weight="0.4" />
 
     <TextView
         android:id="@+id/textView_main_result"
