@@ -47,6 +47,7 @@ public class CctvListTestActivity extends AppCompatActivity{
     //EditText mEditTextSearchKeyword;
 
     String mJsonString;
+    String num;
 
     @Override
 
@@ -81,10 +82,15 @@ public class CctvListTestActivity extends AppCompatActivity{
 
         //리스트뷰 선택했을때 이벤트처리
         mListViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                num=String.valueOf(position+1);   //1부터 시작
+                //Log.d("position",String.valueOf(num));
+
                 Intent intent = new Intent(getApplicationContext(),PlayCctvActivity.class);
                 intent.putExtra("fileName",intentFilename);
+                intent.putExtra("index",num);
                 Log.d("what is filename",intentFilename);
                 startActivity(intent);
             }

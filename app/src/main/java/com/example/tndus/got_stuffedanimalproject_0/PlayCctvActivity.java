@@ -16,6 +16,7 @@ public class PlayCctvActivity extends AppCompatActivity {
     MediaController mediaC;     //동영상 컨트롤러
 
     String fileName;
+    String index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +26,10 @@ public class PlayCctvActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         fileName = intent.getStringExtra("fileName");
+        index = intent.getStringExtra("index");
 
-        videoView.setVideoURI(Uri.parse("http://tndusdl73.cafe24.com/video/"+fileName+".mp4"));
+
+        videoView.setVideoURI(Uri.parse("http://tndusdl73.cafe24.com/video/"+fileName+"_"+index+".mp4"));
         videoView.requestFocus();
         videoView.setMediaController(mediaC);
         mediaC.setAnchorView(videoView);
